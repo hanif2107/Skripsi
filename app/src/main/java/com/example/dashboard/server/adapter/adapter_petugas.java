@@ -1,0 +1,73 @@
+package com.example.dashboard.server.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.dashboard.R;
+import com.example.dashboard.server.item.petugas_item;
+
+import java.util.List;
+
+public class adapter_petugas extends RecyclerView.Adapter<adapter_petugas.MyViewHolder>{
+    Context context;
+    List<petugas_item> menu;
+
+
+
+    public adapter_petugas(Context context, List<petugas_item> data_menu) {
+        this.context = context;
+        this.menu= data_menu;
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_petugas, parent, false);
+        MyViewHolder holder = new MyViewHolder(view);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        // Set widget
+        holder.Nm.setText(menu.get(position).getNama());
+        holder.Almt.setText(menu.get(position).getAlamat());
+        Log.d("data",menu.get(position).getAlamat());
+        holder.Notelp.setText(menu.get(position).getNo_hp());
+//        final String urlGambar = InitRetrofit.BASE_URL+"/Images/" + menu.get(position).getFoto();
+//        Picasso.with(context).load(urlGambar).into(holder.gambarmenu);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//
+//                Intent varIntent = new Intent(context, Detail_Menu.class);
+//                varIntent.putExtra("ID", menu.get(position).getId());
+//                varIntent.putExtra("NAMA", menu.get(position).getNama());
+//                varIntent.putExtra("HARGA", menu.get(position).getHarga());
+//                varIntent.putExtra("DESKRIPSI", menu.get(position).getDeskripsi());
+//                varIntent.putExtra("GAMBAR_MENU", urlGambar);
+//                varIntent.putExtra("GAMBAR", menu.get(position).getFoto());
+//                context.startActivity(varIntent);
+            }
+        });
+    }
+    @Override
+    public int getItemCount() {
+        return menu.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView Nm,Almt,Notelp;
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            Nm = (TextView)itemView.findViewById(R.id.namal1);
+            Almt = (TextView)itemView.findViewById(R.id.alamt1);
+            Notelp = (TextView)itemView.findViewById(R.id.telp1);
+
+        }
+    }
+}

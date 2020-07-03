@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dashboard</string>
+    <string name="title_activity_maps__sampah">Map</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaGFuaWYxNjI1IiwiYSI6ImNrYzA0bW9nejE4bmMycnBrc3l3ZDAxc2MifQ.ITpgknZVS4CB564TzX5kxQ</string>
+</resources>
