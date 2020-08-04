@@ -17,7 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Menu.Petugas"></activity>
+        <activity android:name=".Menu.History"></activity>
+        <activity android:name=".Menu.Tentang" />
+        <activity android:name=".Menu.Registrasi_Kotak" />
+        <activity android:name=".History" />
+        <activity android:name=".Menu.EditProfil" />
+        <activity android:name=".Menu.Petugas" />
         <activity android:name=".Menu.DataPetugas" />
         <activity android:name=".Menu.Data_Sampah" />
         <!--

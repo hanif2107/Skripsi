@@ -7,11 +7,11 @@ public class LocationModel {
     @SerializedName("nama_lokasi")
     private String imageLocationName;
     @SerializedName("latitude")
-    private String latutide;
+    private double latutide;
     @SerializedName("longitude")
-    private String longitude;
+    private double longitude;
 
-    public LocationModel(String imageLocationName, String latutide, String longitude) {
+    public LocationModel(String imageLocationName, double latutide, double longitude) {
         this.imageLocationName = imageLocationName;
         this.latutide = latutide;
         this.longitude = longitude;
@@ -28,19 +28,19 @@ public class LocationModel {
         this.imageLocationName = imageLocationName;
     }
 
-    public String getLatutide() {
+    public double getLatutide() {
         return latutide;
     }
 
-    public void setLatutide(String latutide) {
+    public void setLatutide(double latutide) {
         this.latutide = latutide;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 }

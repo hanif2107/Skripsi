@@ -12,9 +12,9 @@ import com.example.dashboard.MainActivity;
 import com.example.dashboard.R;
 import com.example.dashboard.server.ApiServices;
 import com.example.dashboard.server.Network;
-import com.example.dashboard.server.adapter.adapter_petugas;
-import com.example.dashboard.server.item.petugas_item;
-import com.example.dashboard.server.response.response_petugas;
+import com.example.dashboard.server.adapter.adapter_history;
+import com.example.dashboard.server.item.history_item;
+import com.example.dashboard.server.response.response_history;
 
 import java.util.List;
 
@@ -22,16 +22,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Petugas extends AppCompatActivity {
-private RecyclerView recyclerView;
-GridLayoutManager gridLayoutManager;
+public class History extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    GridLayoutManager gridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_petugas);
+        setContentView(R.layout.activity_history);
 
-        recyclerView = (RecyclerView)findViewById(R.id.listpetugas);
+        recyclerView = (RecyclerView)findViewById(R.id.listhistory);
         recyclerView.setHasFixedSize(true);
 //        LinearLayoutManager layoutManager= new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -39,44 +39,44 @@ GridLayoutManager gridLayoutManager;
 //        llm.setOrientation(LinearLayoutManager.VERTICAL);
 //
 //        //GRID 2 kolom
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(Petugas.this,1);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(History.this,1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        tampilpetugas();
+        tampilhistory();
 //
 
     }
 
-    private void tampilpetugas() {
+    private void tampilhistory() {
         ApiServices api = Network.getInstance().getApi();
-        Call<response_petugas> menuCall = api.getuser();
-        menuCall.enqueue(new Callback<response_petugas>() {
+        Call<response_history> menuCall = api.gethistory();
+        menuCall.enqueue(new Callback<response_history>() {
             @Override
-            public void onResponse(Call<response_petugas> call, Response<response_petugas> response) {
+            public void onResponse(Call<response_history> call, Response<response_history> response) {
                 if (response.isSuccessful()){
                     Log.d("response api", response.body().toString());
-                    List<petugas_item> data_menu= response.body().getData();
+                    List<history_item> data_menu= response.body().getData();
                     boolean status = response.body().isStatus();
                     Log.d("coba", String.valueOf(status));
                     if (status){
-                        adapter_petugas adapter = new adapter_petugas(Petugas.this, data_menu);
+                        adapter_history adapter = new adapter_history(History.this, data_menu);
                         recyclerView.setAdapter(adapter);
 //                        Toast.makeText(Petugas.this, "Data Petugas", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(Petugas.this, "Tidak Ada data Petugas saat ini", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(History.this, "Tidak Ada data Petugas saat ini", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<response_petugas> call, Throwable t) {
+            public void onFailure(Call<response_history> call, Throwable t) {
                 // print ke log jika Error
                 t.printStackTrace();
             }
         });
     }
     public void onBackPressed() {
-        Intent a = new Intent(Petugas.this, MainActivity.class);
+        Intent a = new Intent(History.this, MainActivity.class);
         startActivity(a);
         finish();
     }

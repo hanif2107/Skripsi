@@ -2,4 +2,11 @@
     <string name="app_name">Dashboard</string>
     <string name="title_activity_maps__sampah">Map</string>
     <string name="mapbox_access_token">pk.eyJ1IjoiaGFuaWYxNjI1IiwiYSI6ImNrYzA0bW9nejE4bmMycnBrc3l3ZDAxc2MifQ.ITpgknZVS4CB564TzX5kxQ</string>
+    <string name="no_location_detected">
+        No location detected. Make sure location is enabled on the device.
+    </string>
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core
+        functionality.</string>
+    <string name="settings">Settings</string>
 </resources>

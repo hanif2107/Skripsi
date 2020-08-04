@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Network {
 
     public static final String BASE_URL ="http://192.168.43.33:8001/";
-    public static final String BASET_URL ="https://monitoringaki.000webhostapp.com/sim900/";
+//    public static final String BASET_URL ="https://monitoringaki.000webhostapp.com/sim900/";
 //    https://monitoringaki.000webhostapp.com/sim900//
 
     private static Network mInstance;
@@ -40,7 +40,7 @@ public class Network {
                     .addInterceptor(new LoggingInterceptor())
                     .build();
             RETROFIT = new Retrofit.Builder()
-                    .baseUrl(BASET_URL)
+                    .baseUrl(BASE_URL)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

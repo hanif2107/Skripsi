@@ -1,4 +1,4 @@
-package com.example.dashboard;
+package com.example.dashboard.Menu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dashboard.MainActivity;
+import com.example.dashboard.R;
+import com.example.dashboard.Storage.SharedPrefManager;
+import com.example.dashboard.login;
 import com.example.dashboard.server.Network;
 
 import org.json.JSONException;
@@ -22,47 +26,42 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class registrasi extends AppCompatActivity {
-    EditText usernamereg,namaleng,tel,almt,psw;
-    Button dft,akun;
-    ProgressDialog loading;
+public class EditProfil extends AppCompatActivity {
+EditText UsernameEd,NamaLengkp,NoTelp,Alamat,Passw;
+Button Simpan;
+SharedPrefManager sharedPrefManager;
+ProgressDialog loading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrasi);
-        usernamereg=(EditText) findViewById(R.id.usernameregister);
-        namaleng=(EditText) findViewById(R.id.namalengkap);
-        tel=(EditText) findViewById(R.id.telp);
-        almt=(EditText) findViewById(R.id.alamat);
-        psw=(EditText) findViewById(R.id.passwordreg);
-        dft=(Button) findViewById(R.id.daftar);
-        akun=(Button) findViewById(R.id.punyaakun);
+        setContentView(R.layout.activity_edit_profil);
+        sharedPrefManager =new SharedPrefManager(this);
+        Simpan=(Button) findViewById(R.id.simpan);
+        UsernameEd = (EditText) findViewById(R.id.usernameregister1);
+        NamaLengkp = (EditText) findViewById(R.id.namalengkap1);
+        NoTelp = (EditText) findViewById(R.id.telp1);
+        Alamat = (EditText) findViewById(R.id.alamat1);
+        Passw = (EditText) findViewById(R.id.passwordreg1);
+        UsernameEd.setText(sharedPrefManager.getSPEmail());
+        NamaLengkp.setText(sharedPrefManager.getSPNama());
+        NoTelp.setText(sharedPrefManager.getSPTelpon());
+        Alamat.setText(sharedPrefManager.getSPAlamat());
 
-//        ButterKnife.bind(this);
-
-        akun.setOnClickListener(new View.OnClickListener() {
+        Simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(registrasi.this,login.class);
-                startActivity(intent);
-                finish();
+                cekedit();
             }
         });
-        dft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cekinputan();
-            }
-        });
+    }
 
-        }
-    public void cekinputan(){
-        loading = ProgressDialog.show(registrasi.this,"Loading.....",null,true,true);
-        String usernameregi = usernamereg.getText().toString();
-        String namalengk = namaleng.getText().toString();
-        String telpon = tel.getText().toString();
-        String alama = almt.getText().toString();
-        String passw = psw.getText().toString();
+    public void cekedit(){
+        loading = ProgressDialog.show(EditProfil.this,"Loading.....",null,true,true);
+        String usernameregi = UsernameEd.getText().toString();
+        String namalengk = NamaLengkp.getText().toString();
+        String telpon = NoTelp.getText().toString();
+        String alama = Alamat.getText().toString();
+        String passw = Passw.getText().toString();
         if (usernameregi.isEmpty()) {
             loading.dismiss();
             Toast.makeText(getApplicationContext(), "Username Tidak Boleh Kosong", Toast.LENGTH_LONG).show();
@@ -80,18 +79,18 @@ public class registrasi extends AppCompatActivity {
             loading.dismiss();
             Toast.makeText(getApplicationContext(), "Password tidak boleh kosong", Toast.LENGTH_LONG).show();
         } else {
-            RequestRegister();
+            RequestEdit();
         }
     }
 
-    private void RequestRegister() {
-        String usernameregi = usernamereg.getText().toString();
-        String namalengk = namaleng.getText().toString();
-        String telpon = tel.getText().toString();
-        String alama = almt.getText().toString();
-        String passw = psw.getText().toString();
+    private void RequestEdit() {
+        String usernameregi = UsernameEd.getText().toString();
+        String namalengk = NamaLengkp.getText().toString();
+        String telpon = NoTelp.getText().toString();
+        String alama = Alamat.getText().toString();
+        String passw = Passw.getText().toString();
 
-        retrofit2.Call<ResponseBody> call = Network.getInstance().getApi().Register(usernameregi,namalengk,telpon,alama,passw);
+        retrofit2.Call<ResponseBody> call = Network.getInstance().getApi().Edit(usernameregi,namalengk,telpon,alama,passw);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -99,18 +98,18 @@ public class registrasi extends AppCompatActivity {
                     loading.dismiss();
                     try {
                         JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                        if (jsonRESULTS.getString("msg").equals("Berhasil Registrasi")){
+                        if (jsonRESULTS.getString("msg").equals("Berhasil")){
                             Log.d("response api", jsonRESULTS.toString());
-                            Toast.makeText(registrasi.this, "BERHASIL REGISTER", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditProfil.this, "BERHASIL EDIT PROFILE", Toast.LENGTH_SHORT).show();
 //                            String id = jsonRESULTS.getJSONObject("user").getString("ID");
 
-                            Intent intent= new Intent(registrasi.this,login.class);
+                            Intent intent= new Intent(EditProfil.this, login.class);
                             startActivity(intent)
                             ;
                             finish();
                         } else {
                             String error_message = jsonRESULTS.getString("msg");
-                            Toast.makeText(registrasi.this, error_message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditProfil.this, error_message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -119,7 +118,7 @@ public class registrasi extends AppCompatActivity {
                     }
                 } else {
                     loading.dismiss();
-                    Toast.makeText(registrasi.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfil.this, "Login Gagal", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -127,17 +126,15 @@ public class registrasi extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.v("debug", "onFailure: ERROR > " + t.toString());
                 loading.dismiss();
-                Toast.makeText(registrasi.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProfil.this, "Login Gagal", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
     public void onBackPressed() {
-        Intent a = new Intent(registrasi.this, login.class);
+        Intent a = new Intent(EditProfil.this, MainActivity.class);
         startActivity(a);
         finish();
     }
-
-
 }

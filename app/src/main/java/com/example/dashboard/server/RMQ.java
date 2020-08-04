@@ -1,6 +1,5 @@
 package com.example.dashboard.server;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +19,10 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeoutException;
 
-public class Koneksi_RMQ {
+public class RMQ {
+
+    // Load Global Configuration
+    // Setup RMQ Configuration (Ganti dengan setting akun RMQ nya)
     Settings settings = new Settings();
     String user = "iot_pertanian";
     String pass = "iotpertanian";
@@ -28,8 +30,8 @@ public class Koneksi_RMQ {
     String vhost = "/iotpertanian";
     String exchanges_name = "amq.fanout";
     String queue_name_publish = "hello";
-    String queue_name_subscribe = "kotak_sampah";
-    String routingKey = "kotak_sampah";
+    String queue_name_subscribe = "notifikasi";
+    String routingKey = "notifikasi";
 
     // Define new Connection Factory
     ConnectionFactory factory = new ConnectionFactory();
@@ -41,7 +43,7 @@ public class Koneksi_RMQ {
     public void setupConnectionFactory() {
         try {
             factory.setAutomaticRecoveryEnabled(false);
-            factory.setUri("amqp://" + user + ":" + pass + "@" + host);
+            factory.setUri("amqp://"+user+":"+pass+"@"+host);
             factory.setVirtualHost(vhost);
         } catch (KeyManagementException | NoSuchAlgorithmException | URISyntaxException e1) {
             e1.printStackTrace();
@@ -50,7 +52,6 @@ public class Koneksi_RMQ {
 
     /**
      * Publish data lewat RMQ
-     *
      * @param message
      */
     public void publish(String message) {
@@ -61,8 +62,8 @@ public class Koneksi_RMQ {
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
 
-            String messageOn = message;
-            channel.basicPublish("", queue_name_publish, null, messageOn.getBytes());
+            String messageOn = message ;
+            channel.basicPublish("", queue_name_publish,null,messageOn.getBytes());
 
         } catch (IOException e) {
             Log.d("Publish Error", e.getMessage());
@@ -76,7 +77,6 @@ public class Koneksi_RMQ {
 
     /**
      * Optional, Send Speed for threading speed
-     *
      * @throws InterruptedException
      */
     public void SendSpeed() throws InterruptedException {
@@ -85,15 +85,15 @@ public class Koneksi_RMQ {
 
     /**
      * Fungsi untuk subscribe data RMQ
-     *
      * @param handler
      * @param subscribeThread
      */
-    public void subscribe(final Handler handler, Thread subscribeThread) {
+    public void subscribe(final Handler handler, Thread subscribeThread)
+    {
         subscribeThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
+                while(true) {
                     try {
                         Connection connection = factory.newConnection();
                         Channel channel = connection.createChannel();
@@ -103,12 +103,12 @@ public class Koneksi_RMQ {
                         channel.basicConsume(queue_name_subscribe, true, consumer);
                         QueueingConsumer.Delivery delivery = consumer.nextDelivery();
 
-                        if (delivery != null) {
+                        if (delivery != null){
 
-                            try {
+                            try{
 
                                 String message = null;
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                                     message = new String(delivery.getBody(), StandardCharsets.UTF_8);
                                 }
                                 Log.d("ConsumeDataRMQ", "MessageConsumed" + message);
@@ -119,10 +119,11 @@ public class Koneksi_RMQ {
                                 bundle.putString("msg", message);
                                 msg.setData(bundle);
                                 handler.sendMessage(msg);
+
                                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
 
-                            } catch (Exception e) {
-                                channel.basicReject(delivery.getEnvelope().getDeliveryTag(), true);
+                            }catch (Exception e){
+                                channel.basicReject(delivery.getEnvelope().getDeliveryTag(),true);
                             }
                         }
                     } catch (InterruptedException e) {

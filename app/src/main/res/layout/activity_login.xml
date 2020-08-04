@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Sign In"
+            android:text="Login"
             android:textColor="#2c3e50"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTintMode="@color/colorPrimary"
-                    android:hint="User Name"
+                    android:hint="Username"
                     android:inputType="textEmailAddress"
                     android:textSize="12dp" />
 

@@ -15,7 +15,6 @@ import com.example.dashboard.models.ListLocationModel;
 import com.example.dashboard.models.LocationModel;
 import com.example.dashboard.server.ApiServices;
 import com.example.dashboard.server.Network;
-import com.google.android.gms.maps.model.LatLng;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
@@ -75,8 +74,14 @@ public class Maps_Sampah extends AppCompatActivity implements
         List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
 //        symbolLayerIconFeatureList.add(Feature.fromGeometry(
 //                Point.fromLngLat(latLng)));//ubl
-        symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                Point.fromLngLat(lng, lat)));//unila
+
+        for (int i=0; i<mListMarker.size(); i++) {
+            //set latlng nya
+//            LatLng location = new LatLng(Double.parseDouble(mListMarker.get(i).getLatutide()), Double.parseDouble(mListMarker.get(i).getLongitude()));
+            //tambahkan markernya
+            symbolLayerIconFeatureList.add(Feature.fromGeometry(
+                    Point.fromLngLat(mListMarker.get(i).getLongitude(),mListMarker.get(i).getLatutide())));//unila
+        }
 //        symbolLayerIconFeatureList.add(Feature.fromGeometry(
 //                Point.fromLngLat(105.2025746, -5.4061191)));//spn
 
@@ -164,7 +169,7 @@ public class Maps_Sampah extends AppCompatActivity implements
 
     private void getAllDataLocationLatLng(){
         final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setMessage("Menampilkan Posisi Kotak Sampah ..");
+        dialog.setMessage("Menampilkan Posisi Kotak Sampah ...");
         dialog.show();
 
         ApiServices apiService = Network.getClient().create(ApiServices.class);
@@ -200,19 +205,18 @@ public class Maps_Sampah extends AppCompatActivity implements
         //iterasi semua data dan tampilkan markernya
         for (int i=0; i<mListMarker.size(); i++){
             //set latlng nya
-            LatLng location = new LatLng(Double.parseDouble(mListMarker.get(i).getLatutide()),
-                    Double.parseDouble(mListMarker.get(i).getLongitude()));
-            //tambahkan markernya
-//            /mapView.addMarker(new MarkerOptions().position(location).title(mListMarker.get(i).getImageLocationName()));
-            //set latlng index ke 0
-            LatLng latLng = new LatLng(Double.parseDouble(mListMarker.get(0).getLatutide()),
-                    Double.parseDouble(mListMarker.get(0).getLongitude()));
-             latitude=mListMarker.get(0).getLatutide();
-              lat=Double.parseDouble(latitude);
-             longitude=mListMarker.get(0).getLongitude();
-             lng=Double.parseDouble(longitude);
-            Log.d("latitude", String.valueOf(lat));
-            Log.d("latitude", String.valueOf(lng));
+//            LatLng location = new LatLng(Double.parseDouble(mListMarker.get(i).getLatutide()), Double.parseDouble(mListMarker.get(i).getLongitude()));
+//            //tambahkan markernya
+////            /mapView.addMarker(new MarkerOptions().position(location).title(mListMarker.get(i).getImageLocationName()));
+//            //set latlng index ke 0
+//            LatLng latLng = new LatLng(Double.parseDouble(mListMarker.get(0).getLatutide()),
+//                    Double.parseDouble(mListMarker.get(0).getLongitude()));
+//             latitude=mListMarker.get(0).getLatutide();
+//             lat=Double.parseDouble(latitude);
+//             longitude=mListMarker.get(0).getLongitude();
+//             lng=Double.parseDouble(longitude);
+//            Log.d("latitude", String.valueOf(lat));
+//            Log.d("latitude", String.valueOf(lng));
             //lalu arahkan zooming ke marker index ke 0
 //            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude,latLng.longitude), 17.0f));
         }

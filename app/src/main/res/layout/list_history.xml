@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    tools:context=".Menu.DataPetugas">
+    tools:context=".Menu.History">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="0dp"
-                    android:text="Data Petugas Kebersihan"
+                    android:text="History Data Sampah"
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
@@ -49,12 +49,9 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:background="@color/colorPrimary" />
-
-
         <!--area Form SignUp-->
         <android.support.v7.widget.CardView
             android:layout_marginTop="50dp"
-            android:outlineSpotShadowColor="#008577"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -81,13 +78,12 @@
 
                 <TextView
                     android:text=":"
-                    android:layout_marginTop="2dp"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginTop="1dp"
                     android:textColor="@color/hitam"
                     android:textSize="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
                 <TextView
                     android:text=":"
                     android:layout_marginBottom="5dp"
@@ -108,7 +104,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/namal1"
+                    android:id="@+id/berat1"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/hitam"
                     android:textSize="15dp"
@@ -116,18 +112,17 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/telp1"
+                    android:id="@+id/volume1"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/hitam"
                     android:textSize="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
                 <TextView
-                    android:id="@+id/alamt1"
+                    android:id="@+id/tanggal1"
+                    android:layout_marginTop="2dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginTop="1dp"
                     android:textColor="@color/hitam"
                     android:textSize="15dp"
                     android:layout_width="wrap_content"
@@ -140,16 +135,13 @@
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-
                 <TextView
-
                     android:layout_marginTop="1dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/hitam"
                     android:textSize="15dp"
-                    android:text="Nama"
+                    android:text="Berat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -159,19 +151,25 @@
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/hitam"
                     android:textSize="15dp"
-                    android:text="No Telpon"
+                    android:text="Volume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+
+                    android:layout_marginTop="2dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginTop="1dp"
                     android:textColor="@color/hitam"
                     android:textSize="15dp"
-                    android:text="Alamat"
+                    android:text="Tanggal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
+
+
 </ScrollView>

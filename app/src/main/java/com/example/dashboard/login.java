@@ -68,7 +68,7 @@ public class login extends AppCompatActivity {
         String Psw = Password.getText().toString();
         if (Email.isEmpty()) {
             loading.dismiss();
-            Toast.makeText(getApplicationContext(), "Email Tidak Boleh Kosong", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Username Tidak Boleh Kosong", Toast.LENGTH_LONG).show();
         } else if (Psw.isEmpty()) {
             loading.dismiss();
             Toast.makeText(getApplicationContext(), "Password tidak boleh kosong", Toast.LENGTH_LONG).show();
